@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"os"
 	"regexp"
-	"rover/src"
 	"rover/src/models"
+	"rover/src/strategy"
 	"strconv"
 	"strings"
 )
@@ -27,28 +27,26 @@ func ReadPlateauCoordinates() *models.Plateau {
 			break
 		}
 		fmt.Print("Invalid format! Please provide right top coordinate of the Plateau: (exp: 5 5) ")
-
 	}
 
 	words := strings.Fields(coordinateStr)
 
-	leftBottom := new(models.Coordinate)
+	leftBottom := new(strategy.Coordinate)
 	leftBottom.SetX(0)
 	leftBottom.SetY(0)
 
-	rightTop := new(models.Coordinate)
+	rightTop := new(strategy.Coordinate)
 	x, _ := strconv.Atoi(words[0])
 	y, _ := strconv.Atoi(words[1])
 	rightTop.SetX(x)
 	rightTop.SetY(y)
-
-	return &models.Plateau{
-		LeftBottom: leftBottom,
-		RightTop:   rightTop,
-	}
+	plateau := &models.Plateau{}
+	plateau.SetLeftBottom(leftBottom)
+	plateau.SetRightTop(rightTop)
+	return plateau
 }
 
-func ReadInitialRover(plateau *models.Plateau, roverNumber int) *src.Rover {
+func ReadInitialRoverState(plateau *models.Plateau, roverNumber int) models.Vehicle {
 
 	reader := bufio.NewReader(os.Stdin)
 	fmt.Printf("\nProvide initial position of the rover %d: (exp: 1 2 N) ", roverNumber)
@@ -69,20 +67,20 @@ func ReadInitialRover(plateau *models.Plateau, roverNumber int) *src.Rover {
 
 	words := strings.Fields(coordinateStr)
 
-	coordinate := new(models.Coordinate)
+	coordinate := new(strategy.Coordinate)
 	x, _ := strconv.Atoi(words[0])
 	y, _ := strconv.Atoi(words[1])
 	coordinate.SetX(x)
 	coordinate.SetY(y)
 
-	return src.NewRoverBuilder().
+	return models.NewRoverBuilder().
 		SetPlateau(plateau).
 		SetCoordinate(coordinate).
 		SetDirection(words[2]).
 		Build()
 }
 
-func ReadInstructions() string {
+func ReadRoverInstruction() string {
 
 	reader := bufio.NewReader(os.Stdin)
 	fmt.Print("Provide initial instructions for the rover: (exp: LLRRMM) ")

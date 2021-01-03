@@ -2,6 +2,6 @@ package strategy
 
 type MoveCriteria interface {
 	Move() error
-	Spin(command rune) MoveCriteria
+	Spin(instruction rune) MoveCriteria
 	GetDirection() string
 }

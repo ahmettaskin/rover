@@ -1,4 +1,4 @@
-package models
+package strategy
 
 type Coordinate struct {
 	x int

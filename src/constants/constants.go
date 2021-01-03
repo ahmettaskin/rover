@@ -5,7 +5,7 @@ const (
 	SOUTH = "s"
 	WEST  = "W"
 	EAST  = "E"
-	LEFT  = "L"
-	RIGHT = "R"
-	MOVE  = "M"
+	LEFT  = 'L'
+	RIGHT = 'R'
+	MOVE  = 'M'
 )

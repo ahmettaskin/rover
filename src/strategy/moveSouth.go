@@ -2,14 +2,13 @@ package strategy
 
 import (
 	"rover/src/constants"
-	"rover/src/models"
 )
 
 type MoveSouth struct {
-	coordinate *models.Coordinate
+	coordinate *Coordinate
 }
 
-func NewMoveSouth(coordinate *models.Coordinate) MoveCriteria {
+func NewMoveSouth(coordinate *Coordinate) MoveCriteria {
 	return &MoveSouth{
 		coordinate: coordinate,
 	}
@@ -24,10 +23,10 @@ func (m *MoveSouth) Move() error {
 	return nil
 }
 
-func (m *MoveSouth) Spin(command rune) MoveCriteria {
-	if command == 'L' {
+func (m *MoveSouth) Spin(instruction rune) MoveCriteria {
+	if instruction == constants.LEFT {
 		return NewMoveEast(m.coordinate)
-	} else if command == 'R' {
+	} else if instruction == constants.RIGHT {
 		return NewMoveWest(m.coordinate)
 	}
 	return m
