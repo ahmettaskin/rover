@@ -83,7 +83,7 @@ func ReadInitialRoverState(plateau *models.Plateau, roverNumber int) models.Vehi
 func ReadRoverInstruction() string {
 
 	reader := bufio.NewReader(os.Stdin)
-	fmt.Print("Provide initial instructions for the rover: (exp: LLRRMM) ")
+	fmt.Print("Provide the instructions for the rover: (exp: LLRRMM) ")
 
 	for {
 		input, _, _ := reader.ReadLine()
@@ -92,6 +92,6 @@ func ReadRoverInstruction() string {
 		if matched {
 			return string(input)
 		}
-		fmt.Print("Invalid format! Please provide instructions for the rover: (exp: LLRRMM) ")
+		fmt.Print("Invalid format! Please provide the instructions for the rover: (exp: LLRRMM) ")
 	}
 }
